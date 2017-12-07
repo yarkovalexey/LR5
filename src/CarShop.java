@@ -10,34 +10,32 @@ public class CarShop {
     private Car cars[];
     private int s;
 
-    public CarShop(){
-        s=0;
-        N=1;
+    public CarShop() {
+        s = 0;
+        N = 1;
         cars = new Car[N];
     }
 
-    public void addCar(int id, String m, String c, int y, int v, int p){
-        if(s >= N)
-        {
+    public void addCar(int id, String m, String c, int y, int v, int p) {
+        if (s >= N) {
             Car tmp[] = new Car[N];
-            System.arraycopy(cars, 0, tmp,0, cars.length);
+            System.arraycopy(cars, 0, tmp, 0, cars.length);
             N += 1;
             cars = new Car[N];
-            System.arraycopy(tmp, 0, cars,0, tmp.length);
+            System.arraycopy(tmp, 0, cars, 0, tmp.length);
         }
         Car A = new Car(id, m, c, y, v, p);
         cars[s] = A;
         s++;
     }
 
-    public void addCar(Car T){
-        if(s >= N)
-        {
+    public void addCar(Car T) {
+        if (s >= N) {
             Car tmp[] = new Car[N];
-            System.arraycopy(cars, 0, tmp,0, cars.length);
+            System.arraycopy(cars, 0, tmp, 0, cars.length);
             N += 1;
             cars = new Car[N];
-            System.arraycopy(tmp, 0, cars,0, tmp.length);
+            System.arraycopy(tmp, 0, cars, 0, tmp.length);
         }
         cars[s] = T;
         s++;
@@ -56,10 +54,10 @@ public class CarShop {
         cars[pos].setCar(T);
     }
 
-    public String findCar(int pos){
-        String res="";
-        for(int i=0;i<s;i++) {
-            if(i==pos) {
+    public String findCar(int pos) {
+        String res = "";
+        for (int i = 0; i < s; i++) {
+            if (i == pos) {
                 //cars[i].getCar();
                 res = cars[i].toString();
             }
@@ -68,13 +66,13 @@ public class CarShop {
     }
 
     public void delCar(int pos) {
-        for(int i=pos;i<s-1;i++) {
-            cars[i]=cars[i+1];
+        for (int i = pos; i < s - 1; i++) {
+            cars[i] = cars[i + 1];
         }
         s--;
     }
 
-    public void bubbleSortCar () {
+    public void bubbleSortCar() {
         for (int i = s - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (cars[j].getID() > cars[j + 1].getID()) {
@@ -93,7 +91,7 @@ public class CarShop {
     @Override
     public String toString() {
         String res = "";
-        for (int i=0; i<s; i++) res += cars[i].toString() + "\n";
+        for (int i = 0; i < s; i++) res += cars[i].toString() + "\n";
         return res;
     }
 }

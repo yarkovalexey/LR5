@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE CarShop SYSTEM "CarShop.dtd">
 <CarShop>
-	<Car>
-		<ID>4</ID>
-		<Model>Mercedes-Benz W140</Model>
-		<Country>DE</Country>
-		<Year>1998</Year>
-		<V>6</V>
-		<Price>600000</Price>
-	</Car>
+    <Car>
+        <ID>4</ID>
+        <Model>Mercedes-Benz W140</Model>
+        <Country>DE</Country>
+        <Year>1998</Year>
+        <V>6</V>
+        <Price>600000</Price>
+    </Car>
     <Car>
         <ID>5</ID>
         <Model>Mercedes-Benz W140</Model>

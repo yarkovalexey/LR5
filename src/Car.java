@@ -44,56 +44,67 @@ public class Car {
     }
 
     public void getCar() {
-        System.out.println("ID: "+ID);
-        System.out.println("марка автомобиля: "+Model);
-        System.out.println("страна-производитель: "+Country);
-        System.out.println("год выпуска: "+Year);
-        System.out.println("объем двигателя: "+V);
-        System.out.println("стоимость: "+Price+"\n");
+        System.out.println("ID: " + ID);
+        System.out.println("марка автомобиля: " + Model);
+        System.out.println("страна-производитель: " + Country);
+        System.out.println("год выпуска: " + Year);
+        System.out.println("объем двигателя: " + V);
+        System.out.println("стоимость: " + Price + "\n");
     }
 
     public int getID() {
         return ID;
     }
+
     public void setID(int ID) {
         this.ID = ID;
     }
+
     public int getYear() {
         return Year;
     }
+
     public void setYear(int year) {
         Year = year;
     }
+
     public int getV() {
         return V;
     }
+
     public void setV(int v) {
         V = v;
     }
+
     public int getPrice() {
         return Price;
     }
+
     public void setPrice(int price) {
         Price = price;
     }
+
     public String getModel() {
         return Model;
     }
+
     public void setModel(String model) {
         Model = model;
     }
+
     public String getCountry() {
         return Country;
     }
+
     public void setCountry(String country) {
         Country = country;
     }
 
     @Override
     public String toString() {
-        return  "ID=" + getID() +
+        return "ID=" + getID() +
                 ", Model='" + getModel() + '\'' +
-                ", Country='" + getCountry() + "\'"+
+                ", Country='" + getCountry() + "\'" +
                 ", Year=" + getYear() +
                 ", V=" + getV() +
                 ", Price=" + getPrice();

@@ -4,20 +4,21 @@
  */
 
 import org.w3c.dom.*;
+
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+
 import org.xml.sax.*;
 
 public class LR5 {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DocumentBuilderFactory dbf = null;
         DocumentBuilder db = null;
         CarShop A = new CarShop();
-        try
-        {
+        try {
             dbf = DocumentBuilderFactory.newInstance();//создаём специальную фабрику паресеров
             dbf.setValidating(true); //включаем проверку структуры документа
             db = dbf.newDocumentBuilder();//создаём парсер для документа
@@ -25,54 +26,59 @@ public class LR5 {
             Document document = db.parse(new File("LR5_dtd.xml")); //создавём документ на основе файла xml
 
             NodeList carShop = document.getElementsByTagName("Car"); // Получаем корневой элемент
-            for (int i=0; i< carShop.getLength(); i++){
-                if (carShop.item(i).getNodeType() == Node.ELEMENT_NODE)
-                {
+            for (int i = 0; i < carShop.getLength(); i++) {
+                if (carShop.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Car T = new Car();
                     Element carShopElement = (Element) carShop.item(i);
 
                     NodeList car = carShopElement.getChildNodes();
-                    for (int j=0; j<car.getLength(); j++){
-                        if (car.item(j).getNodeType() == Node.ELEMENT_NODE){
+                    for (int j = 0; j < car.getLength(); j++) {
+                        if (car.item(j).getNodeType() == Node.ELEMENT_NODE) {
                             Element carElement = (Element) car.item(j);
-                            switch (carElement.getNodeName().trim()){
-                                case "ID":{
+                            switch (carElement.getNodeName().trim()) {
+                                case "ID": {
                                     T.setID(Integer.parseInt(carElement.getTextContent().trim()));
-                                }break;
-                                case "Model":{
+                                }
+                                break;
+                                case "Model": {
                                     T.setModel(carElement.getTextContent().trim());
-                                }break;
-                                case "Country":{
+                                }
+                                break;
+                                case "Country": {
                                     T.setCountry(carElement.getTextContent().trim());
-                                }break;
-                                case "Year":{
+                                }
+                                break;
+                                case "Year": {
                                     T.setYear(Integer.parseInt(carElement.getTextContent().trim()));
-                                }break;
-                                case "V":{
+                                }
+                                break;
+                                case "V": {
                                     T.setV(Integer.parseInt(carElement.getTextContent().trim()));
-                                }break;
-                                case "Price":{
+                                }
+                                break;
+                                case "Price": {
                                     T.setPrice(Integer.parseInt(carElement.getTextContent().trim()));
-                                }break;
+                                }
+                                break;
                             }
                         }
-                    }A.addCar(T);
+                    }
+                    A.addCar(T);
                 }
-            }A.bubbleSortCar();
-        } catch(ParserConfigurationException e)
-        {
+            }
+            A.bubbleSortCar();
+        } catch (ParserConfigurationException e) {
             System.out.println("Ошибка:\n\tСтек:");
             e.printStackTrace();
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("\t" + e.getMessage() + "\n");
         } catch (SAXException ex) {
             System.out.println("Ошибка:");
-            System.out.println("\t"+ex.getMessage()+"\n");
+            System.out.println("\t" + ex.getMessage() + "\n");
         } catch (IOException ex) {
             System.out.println("Ошибка:");
-            System.out.println("\t"+ex.getMessage()+"\n");
+            System.out.println("\t" + ex.getMessage() + "\n");
         }
-        try
-        {
+        try {
             dbf = DocumentBuilderFactory.newInstance();//создаём специальную фабрику паресеров
             db = dbf.newDocumentBuilder();//создаём парсер для нового чистого документа
             Document doc = db.newDocument();
@@ -82,7 +88,7 @@ public class LR5 {
             doc.appendChild(carShop); // Присоединяем корневой элемент CarShop
 
             Element carProp[][] = new Element[A.getS()][6]; // Создаём массив автомобильный свойств
-            for (int i=0; i<A.getS(); i++) {
+            for (int i = 0; i < A.getS(); i++) {
                 Element car;
                 car = doc.createElement("Car"); // Создаем вложенный элемент car
                 carShop.appendChild(car); // Присоединяем вложенный элемент car
@@ -110,41 +116,43 @@ public class LR5 {
             Result fileResult = new StreamResult(new File("LR5_out.xml"));
             TransformerFactory factory = TransformerFactory.newInstance();
             Transformer transformer = factory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
-            transformer.setOutputProperty(OutputKeys.STANDALONE,"yes");
-            transformer.setOutputProperty(OutputKeys.INDENT,"yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "CarShop.dtd");
             transformer.transform(domSource, fileResult);
-        } catch(ParserConfigurationException e)
-        {
+        } catch (ParserConfigurationException e) {
             System.out.println("Ошибка:\n\tСтек:");
             e.printStackTrace();
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("\t" + e.getMessage() + "\n");
         } catch (TransformerConfigurationException e) {
             System.out.println("Ошибка:\n\tСтек:");
             e.printStackTrace();
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("\t" + e.getMessage() + "\n");
         } catch (TransformerException e) {
             System.out.println("Ошибка:\n\tСтек:");
             e.printStackTrace();
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("\t" + e.getMessage() + "\n");
         }
     }
+
     static class SimpleErrorHandler implements ErrorHandler {
         // метод для обработки предупреждений
         public void warning(SAXParseException e) throws SAXException {
-            System.out.println("Предупреждение:\n\tСтрока " +e.getLineNumber() + ":");
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("Предупреждение:\n\tСтрока " + e.getLineNumber() + ":");
+            System.out.println("\t" + e.getMessage() + "\n");
         }
+
         // метод для обработки ошибок
         public void error(SAXParseException e) throws SAXException {
-            System.out.println("Ошибка:\n\tСтрока " +e.getLineNumber() + ":");
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("Ошибка:\n\tСтрока " + e.getLineNumber() + ":");
+            System.out.println("\t" + e.getMessage() + "\n");
         }
+
         // метод для обработки критических ошибок
         public void fatalError(SAXParseException e) throws SAXException {
-            System.out.println("Критическая ошибка:\n\tСтрока " +e.getLineNumber() + ":");
-            System.out.println("\t"+e.getMessage()+"\n");
+            System.out.println("Критическая ошибка:\n\tСтрока " + e.getLineNumber() + ":");
+            System.out.println("\t" + e.getMessage() + "\n");
         }
     }
 }
